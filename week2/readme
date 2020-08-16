@@ -1,0 +1,155 @@
+DS Week-2
+
+Write a C Program for Linear Search using  non recursion
+program
+#include<stdio.h>
+int linear_search(int n,int a[50],int target)
+{
+	int i,pos=-1;
+	for(i=0;i<n;i++)
+	{
+	       if(a[i]==target)
+	       {
+	        pos=i;
+	        break;
+	        }
+	}
+	return pos;
+}
+int main()
+{
+	int i,pos,n,target,a[50];
+	scanf("%d",&n);
+	for(i=0;i<n;i++)
+	scanf("%d",&a[i]);
+	scanf("%d",&target);
+	pos=linear_search(n,a,target);
+	if(pos==-1)
+	printf("element not found");
+	else
+	printf("element present at %d location", pos+1);
+}
+output:
+		
+
+
+Write a C Program for Linear Search using recursion
+#include<stdio.h>
+int linear_search(int n,int a[50],int target)
+{
+	static int i;
+	if(a[i]==target)
+	{
+		return i;
+
+	}
+	else if(i<n)
+	{
+	   i++;
+	   linear_search(n,a,target);
+	}
+	else
+	     return -1;
+}
+int main()
+{
+	int i,pos,n,target,a[50];
+	scanf("%d",&n);
+	for(i=0;i<n;i++)
+	scanf("%d",&a[i]);
+	scanf("%d",&target);
+	pos=linear_search(n,a,target);
+	if(pos==-1)
+	printf("element not found");
+	else
+	printf("element present at %d location", pos+1);
+}
+Output:
+
+		
+
+
+Write a C Program for Binary Search using non-recursion
+#include<stdio.h>
+int binary_search(int first,int last,int a[50],int target)
+{
+	int pos =-1, mid;
+	while(first <= last)
+	{
+	    mid=(first+last)/2;
+	    if(a[mid] == target)
+	    {
+		pos=mid;
+		break;
+	     }
+ 	     else if(a[mid]<target)
+	    {
+		first=mid+1;
+	    }
+	    else
+		last=mid-1;
+                 }
+
+}
+    
+int main()
+{
+	int n,i,pos,target;
+	scanf("%d",&n);
+	int a[n];
+	for(i=0;i<n;i++)
+	scanf("%d",&a[i]);
+	scanf("%d",&target);
+	pos= binary_search(0,n-1,a,target);
+	if(pos==-1)
+	printf("element not present");
+	else
+	printf("element present at %d location",pos+1);
+}
+Output:
+
+Write a C Program for Binary Search using recursion
+#include<stdio.h>
+#include<stdlib.h>
+#define size 10
+int binary_search(int[],int,int,int);
+int binary_search(int a[],int x, int low,int high)
+{
+	int mid;
+	if(low>high)
+	     return -1;
+	mid=(low+high)/2;
+	if(x == a[mid]){
+	     return (mid);
+	}else if(x< a[mid]){
+	    binary_search(a,x,low,mid - 1);
+	}else{
+	     binary_search(a,x,mid+1,high);
+	}
+}
+int main() {
+     int num,i,key,position;
+     int low,high,list[size];
+     printf("\nEnter the total number of elements");
+     scanf("%d",&num);
+     printf("\nEnter the elements of list : ");
+     for(i=0;i<num;i++){
+         scanf("%d",&list[i]);
+     }
+     low = 0;
+     high = num -1;
+     printf("\nEnter element to be searched: ");
+     scanf("%d",&key);
+     position = binary_search(list,key,low,high);
+     if(position != -1) {
+        printf("\nNumber present at %d",(position +1));
+      }else
+         printf("\n The number is not  present in the list");
+      return (0);
+}
+
+Output:
+
+
+Hi WHAA,
+As of now, you have a(n) D in the class.  This assignment is worth 15.00 points.  If you get more than 9.50 (63%) on this assignment, your class grade will increase to a(n) C.  If you get less than 5.00 (33%) on this assignment, your grade will drop at least one grade.  Not doing this assignment will result in a(n) F.

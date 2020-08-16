@@ -1,0 +1,101 @@
+Program to Add Two Complex Numbers by Passing Structure to a Function
+Program :
+#include<stdio.h>
+typedef struct complex
+{
+	int real,imag;
+}complex;
+complex add(C complex c1,complex c2)
+{
+	complex c3;
+	c3.real = c1.real + c2.real;
+	c3.imag = c1.imag + c2.imag;
+ 	return c3;
+}
+int main()
+{
+  struct complex c1,c2,c3;
+  scanf("%d %d",&c1.real,&c1.imag);
+  scanf("%d %d",&c2.real,&c2.imag);
+  c3 = add(c1,c2);
+  printf("addtion  of two complex numbers = %d + i%d",c3.real,c3.imag);
+  return 0;
+OUTPUT:
+
+  
+
+
+
+C Program to Store Information of Students Using Structure
+Program :
+         #include<stdio.h>
+struct student
+{
+	char name[50];
+	int roll;
+	float marks;
+} s;
+int main()
+{
+	printf("Enter information:\n");
+	printf("Enter name: ");
+	fgets(s.name, sizeof(s.name),stdin);
+	printf("Enter roll number: ");
+	scanf("%d", &s.roll);
+	printf("Enter marks: ");
+	scanf("%f", &s.marks);
+	printf("Displaying Information:\n");
+	printf("Name: ");
+	printf("%s" , s.name);
+	printf("Roll number: %d\n", s.roll);
+	printf("Marks: %.1f\n", s.marks);
+	return 0;
+}
+
+Output :
+
+Write a C program to node with data and link using self referential structures
+Program :
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+	int data;
+	struct node*link;
+};
+int main()
+{
+	struct node*s;
+	s=(struct node*)malloc(sizeof(struct node));
+	s->data=100;
+	s->link=NULL;
+	printf("data=%d",s->data);
+}
+Output :
+
+Write a C program to node with data and two link using self referential structures
+Program :
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+	int data;
+	struct node*prev;
+	struct node*next;
+};
+int main()
+{
+	struct node*s;
+	s=(struct node*)malloc(sizeof(struct node));
+	s->data=100;
+	s->prev=NULL;
+	s->next=NULL;
+	printf("data=%d",s->data);
+}
+Output :
+
+
+
+Hi WHAA,
+As of now, you have a(n) F in the class.  This assignment is worth 15.00 points.  If you get more than 12.00 (80%) on this assignment, your class grade will increase to a(n) D.
+

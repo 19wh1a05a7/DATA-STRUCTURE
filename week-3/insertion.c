@@ -1,5 +1,4 @@
 #include<stdio.h>
-#include<conio.h>
 void insertion(int [], int );
 int main()
 {

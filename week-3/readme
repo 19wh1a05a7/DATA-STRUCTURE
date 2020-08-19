@@ -1,0 +1,133 @@
+DS Week-3
+Write a program that implements the following sorting methods to sort a given list of
+integers in ascending order
+i) Bubble sort 
+#include <stdio.h>
+void bubble_sort(long [], long);
+
+int main()
+{
+  long array[100], n, c;
+
+  printf("Enter number of elements\n");
+  scanf("%ld", &n);
+
+  printf("Enter %ld integers\n", n);
+
+  for (c = 0; c < n; c++)
+    scanf("%ld", &array[c]);
+
+  bubble_sort(array, n);
+
+  printf("Sorted list in ascending order:\n");
+
+  for (c = 0; c < n; c++)
+     printf("%ld\n", array[c]);
+
+  return 0;
+}
+
+void bubble_sort(long list[], long n)
+{
+  long c, d, t;
+
+  for (c = 0 ; c < n - 1; c++) {
+    for (d = 0 ; d < n - c - 1; d++) {
+      if (list[d] > list[d+1]) {
+        
+        t         = list[d];
+        list[d]   = list[d+1];
+        list[d+1] = t;
+      }
+    }
+  }
+}
+Output:
+
+       
+ii) Selection sort  
+      #include <stdio.h>
+void selection_sort();
+int a[30], n;
+void main()
+{
+    int i;
+    printf("\nEnter size of an array: ");
+    scanf("%d", &n);
+    printf("\nEnter elements of an array:\n");
+    for(i=0; i<n; i++)
+        scanf("%d", &a[i]);
+    selection_sort();
+    printf("\n\nAfter sorting:\n");
+    for(i=0; i<n; i++)
+        printf("\n%d", a[i]);
+    
+}
+void selection_sort()
+{
+    int i, j, min, t;
+    for (i=0; i<n; i++)
+    {
+        min = i;
+        for (j=i+1; j<n; j++)
+        {
+            if (a[j] < a[min])
+                min = j;
+        }
+        t = a[i];
+        a[i] = a[min];
+        a[min] = t;
+    }
+}
+Output:
+
+iii) Insertion sort
+#include<stdio.h>
+#include<conio.h>
+void insertion(int [], int );
+int main()
+{
+ int arr[30];
+ int i,size;
+ 
+ printf("Enter total no. of elements : ");
+ scanf("%d",&size);
+ for(i=0; i<size; i++)
+ {
+    printf("enter %d elements:  ",i+1);
+    scanf("%d",&arr[i]);
+ }
+    printf("sorted elements: \n");
+ insertion(arr,size);
+
+ for(i=0; i<size; i++)
+    printf(" %d",arr[i]);
+ 
+ return 0;
+}
+void insertion(int arr[], int size)
+{
+ int i,j,t;
+ for(i=0; i<size; i++)
+ {
+   for(j=i-1; j>=0; j--) 
+   {
+    if(arr[j]>arr[j+1])
+    {
+      t=arr[j];
+      arr[j]=arr[j+1];
+      arr[j+1]=t;
+      
+    }
+    
+   
+   }
+ }
+}
+
+Output:
+
+
+
+Hi WHAA,
+As of now, you have a(n) B in the class.  This assignment is worth 15.00 points.  If you get more than 15.00 (100%) on this assignment, your class grade will increase to a(n) A.  If you get less than 9.00 (60%) on this assignment, your grade will drop at least one grade.  Not doing this assignment will result in a(n) D.

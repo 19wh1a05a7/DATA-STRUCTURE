@@ -1,0 +1,861 @@
+DS WEEK-5
+Write a program that uses functions to perform the following operations on Double linked
+list.:
+i) Creation 
+ii) Insertion 
+iii) Deletion
+ iv) Traversal
+
+
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+	float data;
+	struct node *prev;
+	struct node *next;
+};
+struct node *head=NULL,*tail=NULL,*cur,*t1,*t2;
+void create()
+{
+	
+	int n,i;
+	printf("Enter how many no of nodes to be created:\n");
+	scanf("%d",&n);
+	for(i=1;i<=n;i++)
+	{
+		cur=(struct node*)malloc(sizeof(struct node));
+		printf("Enter data:\n");
+		scanf("%f",&(cur->data));
+		cur->prev=NULL;
+		cur->next=NULL;
+		if(head==NULL)
+			tail=head=cur;
+		else
+		{
+			tail->next=cur;
+			cur->prev=tail;
+			tail=cur;
+		}
+	}
+}
+void insert_before_node()
+{
+	float value;
+	cur=(struct node*)malloc(sizeof(struct node));
+	printf("Enter current node data:\n");
+	scanf("%f",&(cur->data));
+	printf("Enter the data before which we need to perform insertion\n");
+	scanf("%f",&value);
+	t1=head;
+	while(t1 != NULL && t1->data != value)
+	{
+		t2=t1;
+		t1=t1->next;
+	}
+	t2->next=cur;
+	cur->prev=t2;
+	cur->next=t1;
+	t1->prev=cur;
+}
+void insert_at_position()
+{
+	int c=1,pos;
+	cur=(struct node*)malloc(sizeof(struct node));
+	printf("Enter current node data:\n");
+	scanf("%f",&(cur->data));
+	printf("Enter position:\n");
+	scanf("%d",&pos);
+	t1=head;
+	while(c<pos && t1 != NULL)
+	{
+		t2=t1;
+		t1=t1->next;
+		c++;
+	}
+	t2->next=cur;
+	cur->prev=t2;
+	cur->next=t1;
+	t1->prev=cur;
+}
+void insert_at_begin()
+{
+	cur=(struct node*)malloc(sizeof(struct node));
+	printf("Enter current node data:\n");
+	scanf("%f",&(cur->data));
+	cur->prev=NULL;
+	cur->next=head;
+	head->prev=cur;
+	head=cur;
+}
+
+void insert_at_end()
+{
+	cur=(struct node*)malloc(sizeof(struct node));
+	printf("Enter current node data:\n");
+	scanf("%f",&(cur->data));
+	cur->next=NULL;
+	cur->prev=tail;
+	tail->next=cur;
+	tail=cur;
+}
+void insert_after_node()
+{
+	float value;
+	cur=(struct node*)malloc(sizeof(struct node));
+	printf("Enter current node data:\n");
+	scanf("%f",&(cur->data));
+	printf("Enter the data after which node we need to insert:\n");
+	scanf("%f",&value);
+	t1=head;
+	while(t1->data != value && t1 != NULL)
+	{
+		t1=t1->next;
+	}
+	cur->next=t1->next;
+	t1->next->prev=cur;	
+	t1->next=cur;
+	cur->prev=t1;
+}
+
+void delete_at_begin()
+{
+	cur=head;
+	head=head->next;
+	head->prev=NULL;
+	printf("Deleted element is %f",cur->data);
+	cur->next=NULL;
+	free(cur);
+}
+void delete_at_end()
+{
+	cur=tail;
+	tail=tail->prev;
+	tail->next=NULL;
+	printf("Deleted element is %f",cur->data);
+	cur->prev=NULL;
+	free(cur);
+}
+void delete_at_pos()
+{
+	int c=1,pos;
+	printf("Enter position where we need to perform deletion:\n");
+	scanf("%d",&pos);
+	t1=head;
+	while(c<pos && t1 != NULL)
+	{
+		t2=t1;
+		t1=t1->next;
+		c++;
+	}
+	t2->next=t1->next;
+	t1->next->prev=t2;
+	printf("Deleted element is %f\n",t1->data);
+	free(t1);
+}
+void delete_before()
+{
+	float value;
+	printf("Enter value before we need to delte:\n");
+	scanf("%f",&value);
+	t1=head;
+	while(t1->next->data!=value && t1->next!=NULL)
+	{
+		t2=t1;
+		t1=t1->next;
+	}
+	t2->next=t1->next;
+	t1->next->prev=t2;
+	printf("Deleted element is %f\n",t1->data);
+	free(t1);
+
+}
+void delete_after()
+{
+	float value;
+	printf("Enter value after we need to perform dltn:\n");
+	scanf("%f",&value);
+	t1=head;
+	while(t1 != NULL && t1->data != value)
+		t1=t1->next;
+	t2=t1->next;
+	t1->next=t2->next;
+	t2->next->prev=t1;
+	printf("Deleted element is : %f\n",t2->data);
+	free(t2);
+}
+
+void display_in_forward()
+{
+	if(head==NULL)
+		printf("DLList is empty\n");
+	else
+	{
+		cur=head;
+		printf("The elements of DLL are:\n");
+		while(cur != NULL)
+		{
+			printf("%f <->",cur->data);
+			cur=cur->next;
+		}
+	}
+}
+void display_in_backward()
+{
+	if(head==NULL)
+		printf("DLList is empty\n");
+	else
+	{
+		cur=tail;
+		printf("The elements of DLL are:\n");
+		while(cur != NULL)
+		{
+			printf("%f <-> ",cur->data);
+			cur=cur->prev;
+		}
+	}
+}
+void sorting()
+{
+	struct node *p1,*p2;
+	p1=head;
+	int c=0,i,t;
+	while(p1!=NULL)
+	{
+		c++;
+		p1=p1->next;
+	}
+	for(i=0;i<c;i++)
+	{	p2=head;
+		while(p2->next != NULL)
+		{
+			if(p2->data>p2->next->data)
+			{
+				t=p2->data;
+				p2->data=p2->next->data;
+				p2->next->data=t;
+			}
+			p2=p2->next;
+		}
+	}
+}
+void search_for_element()
+{
+	float value,flag=0;
+	printf("Enter value to be searched\n:");
+	scanf("%f",&value);
+	int c=1;
+	t1=head;
+	while(t1!=NULL)
+	{
+		if(t1->data==value)
+		{
+			flag=1;
+			break;
+		}
+		t1=t1->next;
+		c++;
+	}
+	if(flag==1)
+	{
+		printf("Element present in the list at %d position\n",c);
+	}
+	else
+		printf("Element not present in the list\n");
+}
+
+	
+
+
+
+
+
+int main()
+{
+	int ch;
+	while(1)
+	{
+		printf("***********************\n");
+		printf("Program for double linked list\n");
+		printf("1-create\n2-insert before node\n3-insert at position\n4-insert at begin\n5-insert at end");
+		printf("\n6-insert after node\n7-delete at begin\n8-delete at end\n9-delete at pos\n10-delete before\n");
+		printf("11-delete after\n12-display in forward\n13-display in backward\n14-sorting\n15-search for element\n");
+		printf("***********************\n");
+		printf("Enter your choice\n");
+		scanf("%d",&ch);
+		switch(ch)
+		{
+			case 1: create();
+				break;
+			case 2:insert_before_node();
+				break;
+			case 3:insert_at_position();
+				break;
+
+			case 4:insert_at_begin();
+				break;
+			case 5:insert_at_end();
+				break;
+			case 6:insert_after_node();
+				break;
+			case 7:delete_at_begin();
+				break;
+			case 8:delete_at_end();
+				break;
+			case 9:delete_at_pos();
+				break;
+			case 10:delete_before();
+				break;
+			case 11:delete_after();
+				break;
+			case 12:display_in_forward();
+				break;
+			case 13:display_in_backward();
+				break;
+			case 14:sorting();
+				break;
+			case 15:search_for_element();
+				break;
+			case 16:exit(0);
+				break;
+		}
+	}
+}
+OUTPUT:
+
+Setting up environment for using MinGW with GCC from C:\TDM-GCC-64\.
+
+C:\TDM-GCC-64>cd dslab
+
+C:\TDM-GCC-64\dslab>gcc dll.c -o dll
+
+C:\TDM-GCC-64\dslab>dll
+***********************
+Program for double linked list
+1-create
+2-insert before node
+3-insert at position
+4-insert at begin
+5-insert at end
+6-insert after node
+7-delete at begin
+8-delete at end
+9-delete at pos
+10-delete before
+11-delete after
+12-display in forward
+13-display in backward
+14-sorting
+15-search for element
+***********************
+Enter your choice
+1
+Enter how many no of nodes to be created:
+5
+Enter data:
+10
+Enter data:
+20
+Enter data:
+30
+Enter data:
+40
+Enter data:
+50
+***********************
+Program for double linked list
+1-create
+2-insert before node
+3-insert at position
+4-insert at begin
+5-insert at end
+6-insert after node
+7-delete at begin
+8-delete at end
+9-delete at pos
+10-delete before
+11-delete after
+12-display in forward
+13-display in backward
+14-sorting
+15-search for element
+***********************
+Enter your choice
+2
+Enter current node data:
+25
+Enter the data before which we need to perform insertion
+20
+***********************
+Program for double linked list
+1-create
+2-insert before node
+3-insert at position
+4-insert at begin
+5-insert at end
+6-insert after node
+7-delete at begin
+8-delete at end
+9-delete at pos
+10-delete before
+11-delete after
+12-display in forward
+13-display in backward
+14-sorting
+15-search for element
+***********************
+Enter your choice
+3
+Enter current node data:
+15
+Enter position:
+2
+***********************
+Program for double linked list
+1-create
+2-insert before node
+3-insert at position
+4-insert at begin
+5-insert at end
+6-insert after node
+7-delete at begin
+8-delete at end
+9-delete at pos
+10-delete before
+11-delete after
+12-display in forward
+13-display in backward
+14-sorting
+15-search for element
+***********************
+Enter your choice
+12
+The elements of DLL are:
+10.000000 <->15.000000 <->25.000000 <->20.000000 <->30.000000 <->40.000000 <->50.000000 <->***********************
+Program for double linked list
+1-create
+2-insert before node
+3-insert at position
+4-insert at begin
+5-insert at end
+6-insert after node
+7-delete at begin
+8-delete at end
+9-delete at pos
+10-delete before
+11-delete after
+12-display in forward
+13-display in backward
+14-sorting
+15-search for element
+***********************
+Enter your choice
+4
+Enter current node data:
+5
+***********************
+Program for double linked list
+1-create
+2-insert before node
+3-insert at position
+4-insert at begin
+5-insert at end
+6-insert after node
+7-delete at begin
+8-delete at end
+9-delete at pos
+10-delete before
+11-delete after
+12-display in forward
+13-display in backward
+14-sorting
+15-search for element
+***********************
+Enter your choice
+12
+The elements of DLL are:
+5.000000 <->10.000000 <->15.000000 <->25.000000 <->20.000000 <->30.000000 <->40.000000 <->50.000000 <->***********************
+Program for double linked list
+1-create
+2-insert before node
+3-insert at position
+4-insert at begin
+5-insert at end
+6-insert after node
+7-delete at begin
+8-delete at end
+9-delete at pos
+10-delete before
+11-delete after
+12-display in forward
+13-display in backward
+14-sorting
+15-search for element
+***********************
+Enter your choice
+5
+Enter current node data:
+55
+***********************
+Program for double linked list
+1-create
+2-insert before node
+3-insert at position
+4-insert at begin
+5-insert at end
+6-insert after node
+7-delete at begin
+8-delete at end
+9-delete at pos
+10-delete before
+11-delete after
+12-display in forward
+13-display in backward
+14-sorting
+15-search for element
+***********************
+Enter your choice
+12
+The elements of DLL are:
+5.000000 <->10.000000 <->15.000000 <->25.000000 <->20.000000 <->30.000000 <->40.000000 <->50.000000 <->55.000000 <->***********************
+Program for double linked list
+1-create
+2-insert before node
+3-insert at position
+4-insert at begin
+5-insert at end
+6-insert after node
+7-delete at begin
+8-delete at end
+9-delete at pos
+10-delete before
+11-delete after
+12-display in forward
+13-display in backward
+14-sorting
+15-search for element
+***********************
+Enter your choice
+6
+Enter current node data:
+35
+Enter the data after which node we need to insert:
+30
+***********************
+Program for double linked list
+1-create
+2-insert before node
+3-insert at position
+4-insert at begin
+5-insert at end
+6-insert after node
+7-delete at begin
+8-delete at end
+9-delete at pos
+10-delete before
+11-delete after
+12-display in forward
+13-display in backward
+14-sorting
+15-search for element
+***********************
+Enter your choice
+12
+The elements of DLL are:
+5.000000 <->10.000000 <->15.000000 <->25.000000 <->20.000000 <->30.000000 <->35.000000 <->40.000000 <->50.000000 <->55.000000 <->***********************
+Program for double linked list
+1-create
+2-insert before node
+3-insert at position
+4-insert at begin
+5-insert at end
+6-insert after node
+7-delete at begin
+8-delete at end
+9-delete at pos
+10-delete before
+11-delete after
+12-display in forward
+13-display in backward
+14-sorting
+15-search for element
+***********************
+Enter your choice
+7
+Deleted element is 5.000000***********************
+Program for double linked list
+1-create
+2-insert before node
+3-insert at position
+4-insert at begin
+5-insert at end
+6-insert after node
+7-delete at begin
+8-delete at end
+9-delete at pos
+10-delete before
+11-delete after
+12-display in forward
+13-display in backward
+14-sorting
+15-search for element
+***********************
+Enter your choice
+8
+Deleted element is 55.000000***********************
+Program for double linked list
+1-create
+2-insert before node
+3-insert at position
+4-insert at begin
+5-insert at end
+6-insert after node
+7-delete at begin
+8-delete at end
+9-delete at pos
+10-delete before
+11-delete after
+12-display in forward
+13-display in backward
+14-sorting
+15-search for element
+***********************
+Enter your choice
+9
+Enter position where we need to perform deletion:
+2
+Deleted element is 15.000000
+***********************
+Program for double linked list
+1-create
+2-insert before node
+3-insert at position
+4-insert at begin
+5-insert at end
+6-insert after node
+7-delete at begin
+8-delete at end
+9-delete at pos
+10-delete before
+11-delete after
+12-display in forward
+13-display in backward
+14-sorting
+15-search for element
+***********************
+Enter your choice
+12
+The elements of DLL are:
+10.000000 <->25.000000 <->20.000000 <->30.000000 <->35.000000 <->40.000000 <->50.000000 <->***********************
+Program for double linked list
+1-create
+2-insert before node
+3-insert at position
+4-insert at begin
+5-insert at end
+6-insert after node
+7-delete at begin
+8-delete at end
+9-delete at pos
+10-delete before
+11-delete after
+12-display in forward
+13-display in backward
+14-sorting
+15-search for element
+***********************
+Enter your choice
+10
+Enter value before we need to delte:
+20
+Deleted element is 25.000000
+***********************
+Program for double linked list
+1-create
+2-insert before node
+3-insert at position
+4-insert at begin
+5-insert at end
+6-insert after node
+7-delete at begin
+8-delete at end
+9-delete at pos
+10-delete before
+11-delete after
+12-display in forward
+13-display in backward
+14-sorting
+15-search for element
+***********************
+Enter your choice
+12
+The elements of DLL are:
+10.000000 <->20.000000 <->30.000000 <->35.000000 <->40.000000 <->50.000000 <->***********************
+Program for double linked list
+1-create
+2-insert before node
+3-insert at position
+4-insert at begin
+5-insert at end
+6-insert after node
+7-delete at begin
+8-delete at end
+9-delete at pos
+10-delete before
+11-delete after
+12-display in forward
+13-display in backward
+14-sorting
+15-search for element
+***********************
+Enter your choice
+11
+Enter value after we need to perform dltn:
+30
+Deleted element is : 35.000000
+***********************
+Program for double linked list
+1-create
+2-insert before node
+3-insert at position
+4-insert at begin
+5-insert at end
+6-insert after node
+7-delete at begin
+8-delete at end
+9-delete at pos
+10-delete before
+11-delete after
+12-display in forward
+13-display in backward
+14-sorting
+15-search for element
+***********************
+Enter your choice
+12
+The elements of DLL are:
+10.000000 <->20.000000 <->30.000000 <->40.000000 <->50.000000 <->***********************
+Program for double linked list
+1-create
+2-insert before node
+3-insert at position
+4-insert at begin
+5-insert at end
+6-insert after node
+7-delete at begin
+8-delete at end
+9-delete at pos
+10-delete before
+11-delete after
+12-display in forward
+13-display in backward
+14-sorting
+15-search for element
+***********************
+Enter your choice
+12
+The elements of DLL are:
+10.000000 <->20.000000 <->30.000000 <->40.000000 <->50.000000 <->***********************
+Program for double linked list
+1-create
+2-insert before node
+3-insert at position
+4-insert at begin
+5-insert at end
+6-insert after node
+7-delete at begin
+8-delete at end
+9-delete at pos
+10-delete before
+11-delete after
+12-display in forward
+13-display in backward
+14-sorting
+15-search for element
+***********************
+Enter your choice
+13
+The elements of DLL are:
+50.000000 <-> 40.000000 <-> 30.000000 <-> 20.000000 <-> 10.000000 <-> ***********************
+Program for double linked list
+1-create
+2-insert before node
+3-insert at position
+4-insert at begin
+5-insert at end
+6-insert after node
+7-delete at begin
+8-delete at end
+9-delete at pos
+10-delete before
+11-delete after
+12-display in forward
+13-display in backward
+14-sorting
+15-search for element
+***********************
+Enter your choice
+14
+***********************
+Program for double linked list
+1-create
+2-insert before node
+3-insert at position
+4-insert at begin
+5-insert at end
+6-insert after node
+7-delete at begin
+8-delete at end
+9-delete at pos
+10-delete before
+11-delete after
+12-display in forward
+13-display in backward
+14-sorting
+15-search for element
+***********************
+Enter your choice
+12
+The elements of DLL are:
+10.000000 <->20.000000 <->30.000000 <->40.000000 <->50.000000 <->***********************
+Program for double linked list
+1-create
+2-insert before node
+3-insert at position
+4-insert at begin
+5-insert at end
+6-insert after node
+7-delete at begin
+8-delete at end
+9-delete at pos
+10-delete before
+11-delete after
+12-display in forward
+13-display in backward
+14-sorting
+15-search for element
+***********************
+Enter your choice
+15
+Enter value to be searched
+:20
+Element present in the list at 2 position
+***********************
+Program for double linked list
+1-create
+2-insert before node
+3-insert at position
+4-insert at begin
+5-insert at end
+6-insert after node
+7-delete at begin
+8-delete at end
+9-delete at pos
+10-delete before
+11-delete after
+12-display in forward
+13-display in backward
+14-sorting
+15-search for element
+***********************
+Enter your choice
